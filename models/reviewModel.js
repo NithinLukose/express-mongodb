@@ -32,13 +32,13 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
+//now one user can review a tour once
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
-    path: 'tour',
-  });
-  this.populate({
     path: 'user',
-    select: '-__v -passwordChangedAt',
+    select: 'name',
   });
   next();
 });
