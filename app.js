@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const compression = require('compression');
 
 const userRouter = require('./routes/userRouter');
 const tourRouter = require('./routes/tourRouter');
@@ -39,6 +40,8 @@ app.use(
     whitelist: ['duration'],
   })
 );
+
+app.use(compression());
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);

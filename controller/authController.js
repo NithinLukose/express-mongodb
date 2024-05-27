@@ -94,7 +94,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-    console.log(req.user);
     if (!roles.includes(req.user.role)) {
       return next(new AppError(403, 'You dont have access'));
     }
@@ -128,7 +127,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       message: 'token sent to mail',
     });
   } catch (err) {
-    console.log(err);
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
